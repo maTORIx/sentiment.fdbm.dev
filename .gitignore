@@ -1,0 +1,6 @@
+__pycache__
+venv
+keys.json
+public/**
+data.json
+node_modules

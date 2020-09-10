@@ -1,0 +1,28 @@
+{
+  "name": "sentiment.fdbm.dev",
+  "version": "1.0.0",
+  "description": "sentiment.fdbm.dev",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matorix/sentiment.fdbm.dev.git"
+  },
+  "author": "maTORIx",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/matorix/sentiment.fdbm.dev/issues"
+  },
+  "homepage": "https://github.com/matorix/sentiment.fdbm.dev#readme",
+  "dependencies": {
+    "chart.js": "^2.9.3"
+  },
+  "devDependencies": {
+    "css-loader": "^4.3.0",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}

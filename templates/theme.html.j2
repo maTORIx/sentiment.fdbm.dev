@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentiment Analysis</title>
+    <meta charset="utf-8"/>
+    <script>
+        sentiment_data = {{ data }}
+        theme_name = "{{ theme }}"
+    </script>
+    <scritp src="../script.js"></scritp>
+</head>
+<body>
+    <div id="container">
+        <div class="header_container">
+            <h1 class="page_header">{{ theme }}</h1>
+        </div>
+        <div class="main_chart_container">
+            <div id="main_chart"></div>
+        </div>
+        <div class="sentiment_image_container">
+            <img src="../images/loading.svg" alt="">
+        </div>
+        <div class="mini_charts_container">
+        </div>
+    </div>
+</body>
+</html>
