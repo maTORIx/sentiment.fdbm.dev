@@ -1,0 +1,63 @@
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+.page_header {
+    margin: 0px;
+    font-size: 40px;
+    width: 100%;
+    border-bottom: black 2px solid;
+}
+
+.header_container {
+    display: flex;
+    justify-content: center;
+}
+
+.header_container .header_text .sentiment_text_container {
+    display: flex;
+    align-items: center;
+}
+
+.header_text .sentiment_percentage {
+    font-size: 20px;
+    padding-left: 5px;
+}
+
+.header_container .header_text {
+    width: 70%;
+}
+
+.header_container .header_text .sentiment_text_container .sentiment_text_is {
+    font-size: 32px;
+}
+
+.header_container .header_text .sentiment_text_container .sentiment_text {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#index_doughnut_chart_container {
+    width: 30%;
+}
+
+.chart_container .chart_title {
+    font-size: 24px;
+    font-weight: bold;
+    width: 100%;
+    border-bottom: black 2px solid;
+    margin-top: 30px;
+}
+
+.halfsize_chart_container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.halfsize_chart_container .chart_container {
+    width: 50%;
+}
+
+
