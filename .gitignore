@@ -4,3 +4,5 @@ keys.json
 public/**
 data.json
 node_modules
+.vscode
+
