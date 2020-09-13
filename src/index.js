@@ -1,7 +1,7 @@
 import "./css/style.css"
 import "chart.js"
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const dataSum = calcIndexSum(sentiment_data)
     let headerSentimentText = document.querySelector("#sentiment_text")
     let headerPositivePercentageText = document.querySelector("#positive_percentage")
@@ -91,14 +91,14 @@ function createIndexDounutChart(ctx, sumData) {
         },
         options: {
             tooltips: {
-              callbacks: {
-                label: function (tooltipItem, data) {
-                  return data.labels[tooltipItem.index]
-                    + ": "
-                    + data.datasets[0].data[tooltipItem.index]
-                    + "%"
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        return data.labels[tooltipItem.index]
+                            + ": "
+                            + data.datasets[0].data[tooltipItem.index]
+                            + "%"
+                    }
                 }
-              }
             }
         }
     })
@@ -152,7 +152,7 @@ function createIndexLineChart(ctx, data) {
     return new Chart(ctx, {
         "type": "line",
         "data": {
-            "labels": Object.keys(data).map((val) =>val.replace(/_/g, "/")),
+            "labels": Object.keys(data).map((val) => val.replace(/_/g, "/")),
             "datasets": [
                 {
                     "label": "sentiment_index",
@@ -171,12 +171,12 @@ function createIndexLineChart(ctx, data) {
                         "stepSize": 0.5
                     },
                     "gridLines": {
-                        "display": false ,
+                        "display": false,
                     },
                 }],
                 xAxes: [{
                     "gridLines": {
-                        "display": false ,
+                        "display": false,
                     },
                 }]
             }
@@ -188,7 +188,7 @@ function createTweetsLineChart(ctx, data) {
     return new Chart(ctx, {
         "type": "line",
         "data": {
-            "labels": Object.keys(data).map((val) =>val.replace(/_/g, "/")),
+            "labels": Object.keys(data).map((val) => val.replace(/_/g, "/")),
             "datasets": [
                 {
                     "label": "positive_tweets",
@@ -212,8 +212,8 @@ function createTweetsLineChart(ctx, data) {
             scales: {
                 yAxes: [{
                     "ticks": {
-                        "min": -2000,
-                        "max": 2000,
+                        "min": -100,
+                        "max": 100,
                         "stepSize": 500
                     },
                 }],
@@ -231,7 +231,7 @@ function createLikesLineChart(ctx, data) {
     return new Chart(ctx, {
         "type": "line",
         "data": {
-            "labels": Object.keys(data).map((val) =>val.replace(/_/g, "/")),
+            "labels": Object.keys(data).map((val) => val.replace(/_/g, "/")),
             "datasets": [
                 {
                     "label": "positive_likes",
