@@ -10,17 +10,17 @@ TEMPLATE_PATH = os.path.join(BASE_PATH, "templates")
 PUBLIC_PATH = os.path.join(BASE_PATH, "public")
 DATA_REPOSITORY_NAME = "matorix/twitter_sentiment_analysis"
 REPOSITORY_DATA_PATH = "/measured"
-DATA_LENGTH = 7
+DATA_LENGTH = 28
 
 
 def fetch_data(github_id, github_password):
     github_client = Github(github_id, github_password)
     data_repo = github_client.get_repo(DATA_REPOSITORY_NAME)
     themes = data_repo.get_contents(REPOSITORY_DATA_PATH)
-    yesterday = datetime.date.today() - datetime.timedelta(1)
+    yesterday = datetime.date.today() - datetime.timedelta(days=1)
     dates = []
     for i in reversed(range(DATA_LENGTH)):
-        dates.append((yesterday - datetime.timedelta(i)).strftime("%Y_%m_%d"))
+        dates.append((yesterday - datetime.timedelta(days=i)).strftime("%Y_%m_%d"))
     data = {}
 
     for theme in themes:
@@ -31,11 +31,14 @@ def fetch_data(github_id, github_password):
                                   theme.name, date + ".json"])
             try:
                 response = data_repo.get_contents(file_path)
+                data[theme.name][date] = json.loads(response.decoded_content)
             except Exception as e:
-                print(e)
-                del data[theme.name]
-                break
-            data[theme.name][date] = json.loads(response.decoded_content)
+                if dates.index(date) == 0:
+                    del data[theme.name]
+                    break
+                else:
+                    data[theme.name][date] = data[theme.name][dates[dates.index(date) - 1]]
+                    print("none data {}".format(date))
     return data
 
 
