@@ -1,0 +1,82 @@
+h1 {
+    font-size: 3em;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 2em;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    border-bottom: black 2px solid;
+}
+
+h3 {
+    font-size: 1.5em;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    border-bottom: black 2px solid;
+}
+
+p {
+    padding-left: 5px;
+    line-height: 1em;
+}
+
+.themes_container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.theme_container {
+    min-width: 400px;
+    max-width: 800px;
+    flex-grow: 1;
+}
+
+.theme_container:hover .preview_container {
+    opacity: 0.2;
+}
+
+.hover_text {
+    display: none;
+    position: relative;
+    font-size: 3.5em;
+    width: 100%;
+    height: 0px;
+    text-align: center;
+}
+
+.theme_container:hover .hover_text {
+    display: block;
+    position: relative;
+    font-size: 3.5em;
+    bottom: 60%;
+}
+
+.preview_container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.preview_container .preview_text_container {
+    width: 70%;
+}
+
+.preview_container .preview_text_container .sentiment_text {
+    font-size: 3em;
+}
+
+.preview_container .chart_container {
+    width: 30%;
+}
+

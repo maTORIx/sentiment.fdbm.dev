@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Sentiment Analysis</title>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <script>
+        sentiment_data = {{ data }}
     </script>
+    <script src="./index.js"></script>
 </head>
+
 <body>
     <div id="container">
-        <div class="header_container">
-            <h1 class="page_header">Twitter sentiment analysis</h1>
+        <h1>Twitter sentiment analysis</h1>
+        <p>Powered by https://twitter.com/takumi_jxxxx</p>
+        <h2>What's this ?</h2>
+        <p class="description_text">Twitter世論の統計サイトです。上位ツイート100件を感情分析し、推移や平均値を表示します。</p>
+        <h2>Themes</h2>
+        <div class="themes_container" id="themes_container">
         </div>
     </div>
 </body>
+
 </html>

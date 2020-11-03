@@ -48,7 +48,7 @@ def generate_index_page(data):
     with open(template_path, encoding="utf-8") as f:
         text = f.read()
     template = Template(text)
-    generated_text = template.render(data)
+    generated_text = template.render({"data": json.dumps(data)})
     with open(result_path, "w", encoding="utf-8") as f:
         f.write(generated_text)
 
@@ -75,6 +75,10 @@ def main():
     with open(KEYS_PATH, encoding="utf-8") as f:
         keys = json.load(f)
     data = fetch_data(keys["github_id"], keys["github_password"])
+    with open("data.json", "w", encoding="utf-8") as f:
+        f.write(json.dumps(data, indent=4))
+    # with open("data.json", "r", encoding="utf-8") as f:
+    #     data = json.load(f)
     os.makedirs(PUBLIC_PATH, exist_ok=True)
     generate_index_page(data)
     generate_theme_pages(data)
