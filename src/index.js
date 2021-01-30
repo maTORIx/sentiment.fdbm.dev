@@ -35,7 +35,7 @@ function createThemeElement(themeName, sumData, chart_id) {
     container.innerHTML = template
     container.classList = ["theme_container"]
     container.addEventListener("click", () => {
-        window.location.href = `./${themeName}`
+        window.location.href = `./${themeName}/index.html`
     })
 
     return container

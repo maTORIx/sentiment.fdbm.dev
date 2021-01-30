@@ -9,14 +9,18 @@ KEYS_PATH = os.path.join(BASE_PATH, "keys.json")
 TEMPLATE_PATH = os.path.join(BASE_PATH, "templates")
 PUBLIC_PATH = os.path.join(BASE_PATH, "public")
 DATA_REPOSITORY_NAME = "matorix/twitter_sentiment_analysis"
-REPOSITORY_DATA_PATH = "/measured"
-DATA_LENGTH = 28
+REPOSITORY_DATA_PATH = "measured"
+DATA_LENGTH = 90
 
 
-def fetch_data(github_id, github_password):
-    github_client = Github(github_id, github_password)
-    data_repo = github_client.get_repo(DATA_REPOSITORY_NAME)
-    themes = data_repo.get_contents(REPOSITORY_DATA_PATH)
+def fetch_data(github_id, github_password, from_file=False):
+    if not from_file:
+        github_client = Github(github_id, github_password)
+        data_repo = github_client.get_repo(DATA_REPOSITORY_NAME)
+        themes = [theme.name for theme in data_repo.get_contents(REPOSITORY_DATA_PATH)]
+    else:
+        themes = os.listdir(os.path.join(BASE_PATH, "..", "twitter_sentiment_analysis", REPOSITORY_DATA_PATH))
+    print(themes)
     yesterday = datetime.date.today() - datetime.timedelta(days=1)
     dates = []
     for i in reversed(range(DATA_LENGTH)):
@@ -25,20 +29,33 @@ def fetch_data(github_id, github_password):
 
     for theme in themes:
         print("\r{}/{}".format(themes.index(theme), len(themes)), end="")
-        data[theme.name] = {}
+        data[theme] = {}
         for date in dates:
-            file_path = "/".join([REPOSITORY_DATA_PATH,
-                                  theme.name, date + ".json"])
-            try:
-                response = data_repo.get_contents(file_path)
-                data[theme.name][date] = json.loads(response.decoded_content)
-            except Exception as e:
-                if dates.index(date) == 0:
-                    del data[theme.name]
-                    break
-                else:
-                    data[theme.name][date] = data[theme.name][dates[dates.index(date) - 1]]
-                    print("none data {}".format(date))
+            if from_file:
+                file_path = os.path.join(BASE_PATH, "..", "twitter_sentiment_analysis", REPOSITORY_DATA_PATH, theme, date + ".json")
+                try:
+                    with open(file_path, encoding="utf-8") as f:
+                        data[theme][date] = json.loads(f.read())
+                except:
+                    if dates.index(date) == 0:
+                        del data[theme]
+                        break
+                    else:
+                        data[theme][date] = data[theme][dates[dates.index(date) - 1]]
+                        print("none data {}".format(date))
+            else:
+                file_path = "/" + "/".join([REPOSITORY_DATA_PATH,
+                                      theme, date + ".json"])
+                try:
+                    response = data_repo.get_contents(file_path)
+                    data[theme][date] = json.loads(response.decoded_content)
+                except Exception as e:
+                    if dates.index(date) == 0:
+                        del data[theme]
+                        break
+                    else:
+                        data[theme][date] = data[theme][dates[dates.index(date) - 1]]
+                        print("none data {}".format(date))
     return data
 
 
@@ -65,24 +82,26 @@ def generate_theme_pages(data):
         os.makedirs(result_dir, exist_ok=True)
         result_path = os.path.join(result_dir, "index.html")
         generated_text = template.render(
-            {"data": json.dumps(data[theme]), "theme": theme})
+            {"data": json.dumps(data[theme]), "theme": theme, "range": DATA_LENGTH})
         with open(result_path, "w", encoding="utf-8") as f:
             f.write(generated_text)
 
 
-def main():
+def main(from_file=False, from_cache=False):
     # load keys
     with open(KEYS_PATH, encoding="utf-8") as f:
         keys = json.load(f)
-    data = fetch_data(keys["github_id"], keys["github_password"])
-    with open("data.json", "w", encoding="utf-8") as f:
-        f.write(json.dumps(data, indent=4))
-    # with open("data.json", "r", encoding="utf-8") as f:
-    #     data = json.load(f)
+    if from_cache:
+        with open("data.json", "r", encoding="utf-8") as f:
+            data = json.load(f)
+    else:
+        data = fetch_data(keys["github_id"], keys["github_password"], from_file)
+        with open("data.json", "w", encoding="utf-8") as f:
+            f.write(json.dumps(data, indent=4))
     os.makedirs(PUBLIC_PATH, exist_ok=True)
     generate_index_page(data)
     generate_theme_pages(data)
 
 
 if __name__ == "__main__":
-    main()
+    main(True, False)

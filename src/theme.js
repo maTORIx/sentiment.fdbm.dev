@@ -151,7 +151,7 @@ function createTweetsLineChart(ctx, data) {
                     "label": "positive_tweets",
                     "data": Object.keys(data).map((date) => data[date].positive.tweets),
                     "fill": true,
-                    "backgroundColor": "rgba(0, 0, 0)",
+                    "backgroundColor": "rgba(255, 255, 255)",
                     "borderColor": "rgba(0, 0, 0)",
                     "borderWidth": "2"
                 },
@@ -159,7 +159,7 @@ function createTweetsLineChart(ctx, data) {
                     "label": "negative_tweets",
                     "data": Object.keys(data).map((date) => data[date].negative.tweets * -1),
                     "fill": true,
-                    "backgroundColor": "rgba(255, 255, 255)",
+                    "backgroundColor": "rgba(0, 0, 0)",
                     "borderColor": "rgba(0, 0, 0)",
                     "borderWidth": "2"
                 }
@@ -194,7 +194,7 @@ function createLikesLineChart(ctx, data) {
                     "label": "positive_likes",
                     "data": Object.keys(data).map((date) => data[date].positive.likes),
                     "fill": true,
-                    "backgroundColor": "rgba(0, 0, 0)",
+                    "backgroundColor": "rgba(255, 255, 255)",
                     "borderColor": "rgba(0, 0, 0)",
                     "borderWidth": "2"
                 },
@@ -202,7 +202,7 @@ function createLikesLineChart(ctx, data) {
                     "label": "negative_likes",
                     "data": Object.keys(data).map((date) => data[date].negative.likes * -1),
                     "fill": true,
-                    "backgroundColor": "rgba(255, 255, 255)",
+                    "backgroundColor": "rgba(0, 0, 0)",
                     "borderColor": "rgba(0, 0, 0)",
                     "borderWidth": "2"
                 }
